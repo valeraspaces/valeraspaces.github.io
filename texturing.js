@@ -1,6 +1,6 @@
 let sourceImagesArray = [
-  "./textures/1.png",
-  "./textures/2.png"
+  "./1.png",
+  "./2.png"
   ];
 for(let imageSourceIndex = 0; imageSourceIndex < sourceImagesArray.length; imageSourceIndex++){
   let image = new Image();
