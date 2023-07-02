@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html style="background-color: black">
+  <head>
+    <meta charset="utf-8">
+    <title>TwoD engine</title>
+    <style>
+      #output-gx{
+        background-color: black;
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: 100%;
+        max-height: 100%;
+        z-index: -1;
+      }
+      #ui{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        color: white;
+      }
+      #moving-buttons-place, #rotation-buttons-place{
+        position: absolute;
+        bottom: 15%;
+      }
+      #moving-buttons-place{
+        right: 10%;
+      }
+      #rotation-buttons-place{
+        left: 10%;
+      }
+      .moving{
+        user-select: none;
+        color: white;
+        background-color: #00000000;
+        border: 0px solid #00000000;
+        margin: 0;
+        padding: 0;
+        font-size: 48px;
+        transition: font-size 0.2s linear 0s, padding 0.2s linear 0s;
+      }
+      .moving:active{
+        font-size: 42px;
+        padding: 4px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+      }
+      #move_top-btn:active, #move_back-btn:active{
+        padding-top: 3px;
+        padding-bottom: 3px;
+      }
+      #sight-dot{
+        display: none;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 0px;
+        transition: padding 0.5s linear 0s;
+        background-color: white;
+        border-radius: 50%;
+      }
+      .sight-dot-use{
+        display: block;
+        padding: 4px;
+      }
+      #fps_indicator{
+        position: fixed;
+        left: 1%;
+        top: 1%;
+        background-color: #0000007a;
+        padding: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="ui">
+      <div id="fps_indicator"></div>
+      <div id="rotation-buttons-place">
+        <button id="rotate_left-btn" class="moving">◀️</button><button id="rotate_stop-btn" class="moving">⏹️</button><button id="rotate_right-btn" class="moving">▶️</button>
+      </div>
+      <div id="moving-buttons-place">
+        <center><button id="move_top-btn" class="moving">⬆️</button></center>
+        <button id="move_left-btn" class="moving">⬅️</button><button id="move_stop-btn" class="moving">⏹️</button><button id="move_right-btn" class="moving">➡️</button>
+        <center><button id="move_back-btn" class="moving">⬇️</button></center>
+      </div>
+      <div id="sight-dot"></div>
+    </div>
+    <canvas id="output-gx" width="640" height="480"></canvas>
+    <canvas>
+    <script src="./global.js" type="application/javascript"></script>
+    <script src="./texturing.js" type="application/javascript"></script>
+    <script src="./objects.js" type="application/javascript"></script>
+    <script src="./ui.js" type="application/javascript"></script>
+    <script src="./renderer.js" type="application/javascript">
+      console.error("Problems with load script renderer");
+    </script>
+  </body>
+</html>
