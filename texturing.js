@@ -24,8 +24,8 @@ textures.logo = getImageFromFile("./textures/logo.jpg");
 textures.wall = getImageFromFile("./textures/wall.jpg");
 textures.YanaPhoto = getImageFromFile("./textures/Yana.jpg");
 
-s.texture = textures.kostyaSprite;
-w.texture = textures.wall;
-k.texture = textures.logo;
-y.texture = textures.YanaPhoto;
-y.texture = textures.YanaPhoto;
+//s.texture = textures.kostyaSprite;
+//w.texture = textures.wall;
+//k.texture = textures.logo;
+//y.texture = textures.YanaPhoto;
+//y.texture = textures.YanaPhoto;
