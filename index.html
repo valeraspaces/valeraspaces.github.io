@@ -48,17 +48,17 @@
         padding-bottom: 0px;
         padding-top: 0px;
       }
-      #move_top-btn:active, #move_back-btn:active{
+      #move_top-btn:active, #move_back-btn:active, #rotate_top-btn:active, #rotate_bottom-btn:active{
         padding-top: 3px;
         padding-bottom: 3px;
       }
       #sight-dot{
-        display: none;
+        /*display: none;*/
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        padding: 0px;
+        padding: 2px;
         transition: padding 0.5s linear 0s;
         background-color: white;
         border-radius: 50%;
@@ -82,7 +82,9 @@
     <div id="ui">
       <div id="fps_indicator"></div>
       <div id="rotation-buttons-place">
+        <center><button id="rotate_top-btn" class="moving">🔼</button></center>
         <button id="rotate_left-btn" class="moving">◀️</button><button id="rotate_stop-btn" class="moving">⏹️</button><button id="rotate_right-btn" class="moving">▶️</button>
+        <center><button id="rotate_bottom-btn" class="moving">🔽</button></center>
       </div>
       <div id="moving-buttons-place">
         <center><button id="move_top-btn" class="moving">⬆️</button></center>
