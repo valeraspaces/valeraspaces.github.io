@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="index follow">
+    <meta name="description" content="Astdov. Сайт Валерія Обідця: головна сторінка">
+    <meta name="viewport" content="" id="viewport-metatag">
+    <title>Валерій Обідець</title>
+    <link href="/styles/main.css" rel="stylesheet">
+    <link href="/styles/main_header.css" rel="stylesheet">
+    <link href="/styles/site_constructor.css" rel="stylesheet">
+    <script src="/ui_js/main_header.js"></script>
+    <script src="/ui_js/header_animation.js"></script>
+    <script src="/ui_js/main.js"></script>
+    <link href="./ui_images/logo_astdov.svg" rel="icon" type="image/svg+xml">
+    <script src="/ui_js/site_constructor.js"></script>
+  </head>
+  <body>
+    <div id="header">
+      <img src="/ui_images/logo_astdov.svg" alt="Astdov" id="logo_astdov"></img>
+      <div id="header_nav-buttons">
+        <button url="/index.html">Головна</button><button url="/feed/index.html">Стрічка</button><button url="/applications/index.html">Додатки</button>
+      </div>
+    </div>
+    <div id="navigation_panel">
+      <div><a href="/index.html">🏠 Головна</a></div>
+      <div><a href="/feed/index.html">📰 Стрічка</a></div>
+      <div><a href="/gallery/index.html">🖼️ Галерея</a></div>
+      <div><a href="/applications/index.html">🖥️ Додатки</a></div>
+      <div><a href="/info/index.html">✌️ Про себе</a></div>
+    </div>
+    <div id="header_animation-container">
+      <canvas id="header_animation"></canvas>
+    </div>
+    <header id="header_over_animation">
+      <h1 id="nm">Astdov</h1>
+      <p id="header_description">Веб сайт Валерія Обідця із метою lim x -> 0 (1/|x|)</p>
+    </header>
+    <main>
+      <h2>Вибрані програми</h2>
+      <div id="apps_scrollbar" class="scrollbar" align="center">
+        <div id="app_block_scrollbar-skeletani">
+          <span align="center">Завантаження...</span>
+        </div>
+      </div>
+      <h2>Останнє із стрічки</h2>
+      <div id="feed_scrollbar" class="scrollbar" align="center">
+        <div class="feed_block_scrollbar">
+          <div id="title">____ • _____</div>
+          <div id="header_text">_____________</div>
+          <img height="150px" style="display: grid; justify-content: center; align-content: center; background: black">No image</img>
+          <div id="description">_____________________________________________________</div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      
+    </footer>
+  </body>
+</html>

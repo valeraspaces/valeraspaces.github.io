@@ -1,0 +1,39 @@
+#content{
+  margin-top: 4em;
+}
+.post-card{
+  background-color: #eaeaea;
+  display: grid;
+  justify-content: start;
+  grid-auto-flow: row;
+  margin-bottom: 5vh;
+  margin-top: 5vh;
+  border-radius: 2vh;
+}
+.post-card *{
+  text-align: left;
+}
+.post-card #post-title, .post-card #post-header, .post-card #description{
+  margin: 1vh;
+}
+.post-card #post-header{
+  margin-bottom: 0.5vh;
+}
+.post-card #post-multimedia{
+  overflow-x: scroll;
+  width: 100%;
+  background-color: blue;
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: start;
+  grid-auto-columns: 100%;
+  background-color: #ededed;
+}
+@media(prefers-color-scheme: dark){
+  .post-card{
+    background-color: #151515;
+  }
+  .post-card #post-multimedia{
+    background-color: #232323;
+  }
+}

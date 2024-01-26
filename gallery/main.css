@@ -1,0 +1,22 @@
+#content{
+  margin-top: 4em;
+  display: grid;
+  grid-gap: 1vh;
+  grid-template-columns: repeat(auto-fill, minmax(14vh, 1fr));
+}
+#content a{
+  padding: 0;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 14vh;
+  height: 14vh;
+  border-radius: 1vh;
+  box-shadow: 0 0 0.5vh #00000088;
+}
+@media(prefers-color-scheme: dark){
+  #content a{
+    box-shadow: 0 0 0.5vh #55FE5588;
+  }
+}

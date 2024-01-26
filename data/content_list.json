@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Some title text",
+    "header": "Some header text",
+    "text": "I'm a developer! I will use this site for my needs.",
+    "place": "Beryslav",
+    "urlToMedia": ["/ui_images/logo_astdov.svg", "/ui_images/logo_astdov.svg"],
+    "dataCreate": "16/01/2024",
+    "dataEdit": "17/01/2024",
+    "description": "I developing this. It's testing post!"
+  },
+  {
+    "title": "Some title text",
+    "header": "Some header text",
+    "text": "I'm a developer! I will use this site for my needs.",
+    "place": "Beryslav",
+    "urlToMedia": ["/"],
+    "dataCreate": "16/01/2024",
+    "dataEdit": "17/01/2024",
+    "description": "Best of the undefined apps in the world"
+  }
+]

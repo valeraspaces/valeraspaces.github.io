@@ -1,0 +1,151 @@
+#header_content_description{
+  margin-top: 2em;
+}
+#applications-list{
+  display: grid;
+  grid-auto-rows: 28vh;
+  grid-gap: 1vh;
+  grid-template-columns: repeat(auto-fill, minmax(18vh, 1fr));
+}
+.application_block-lnk{
+  background-color: #eaeaea;
+  border-radius: 2vh;
+  display: grid;
+  overflow: hidden;
+  box-shadow: 0 0 0.5vh #00000088;
+  transition: box-shadow 1s linear;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  user-select: none;
+}
+.application_block-lnk #skeleton_loading-text{
+  align-self: center;
+  text-align: center;
+}
+.application_block-lnk #name{
+  text-align: center;
+  align-self: end;
+  margin: 0;
+  padding: 0.5vh;
+  width: 100%;
+  background-color: #ffffff88;
+}
+.application_block-lnk:active{
+  box-shadow: 0 0 0.25vh #00000088;
+  background-blend-mode: screen;
+  background-color: #dddddd;
+}
+#app_details{
+  position: fixed;
+  left: 0; right: 0; top: 0; bottom: 0;
+  padding: 0;
+  display: none;
+}
+#app_details #app_header{
+  background-color: #ededed;
+  box-shadow: 0 0 1vh #00000088;
+  width: 100%;
+  padding-top: 8em;
+  padding-bottom: 2em;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+}
+#app_details #description{
+  margin: 2vh;
+}
+#app_details #app_header *{
+  margin: 2vh;
+  padding: 0;
+}
+#app_details #app_header h3{
+  justify-self: center;
+}
+#app_details #app_favicon{
+  width: 10vh;
+  height: 10vh;
+  box-shadow: 0 0 1.5vh #00000088;
+  border-radius: 14px;
+  background-color: black;
+  justify-self: start;
+}
+#app_details #app_download{
+  justify-self: end;
+  padding: calc(2vh - 4px);
+  border-radius: 14px;
+  background-color: black;
+  border: 2px solid black;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.5s linear, padding 1s ease-out, color 0.5s linear;
+}
+#app_details #app_download:active{
+  padding: calc(2vh - 2px);
+}
+#app_details #photos{
+  background-color: #eaeaea;
+  height: calc(14vh + 4vh);
+  align-items: center;
+  overflow-x: scroll;
+  display: grid;
+  grid-auto-flow: column;
+  padding-left: 2vh;
+  padding-right: 2vh;
+  grid-column-gap: 2vh;
+  justify-items: start;
+}
+#app_details #photos img{
+  height: 15vh;
+  border-radius: 2vh;
+  box-shadow: 0 0 0.5vh #00000088;
+}
+@media(hover: hover){
+  .application_block-lnk:hover{
+    box-shadow: 0 0 1vh #00000088;
+    background-blend-mode: screen;
+    background-color: #eaeaea;
+  }
+  #app_details #app_download:hover{
+    background-color: #00000000;
+    color: black;
+    padding: 2vh;
+  }
+}
+@media(prefers-color-scheme: dark){
+  #app_details #app_header{
+    background-color: #232323;
+    box-shadow: 0 0 1vh #55FE5588;
+  }
+  #app_details #app_favicon{
+    background-color: white;
+  }
+  #app_details #app_download{
+    background-color: white;
+    border-color: white;
+    color: black;
+  }
+  #app_details #photos{
+    background-color: #151515;
+  }
+  .application_block-lnk{
+    background-color: #151515;
+    box-shadow: 0 0 0.5vh #55FE5588;
+  }
+  @media(hover: hover){
+    .application_block-lnk:hover{
+      box-shadow: 0 0 1vh #00000088;
+      background-color: #262626;
+    }
+    #app_details #app_download:hover{
+      color: white;
+    }
+  }
+  .application_block-lnk:active{
+    box-shadow: 0 0 0.25vh #55FE5588;
+    background-color: #222222;
+  }
+  .application_block-lnk #name{
+    background-color: #00000088;
+  }
+}

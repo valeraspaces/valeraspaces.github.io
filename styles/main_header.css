@@ -1,0 +1,119 @@
+#header{
+  display: grid;
+  position: fixed;
+  z-index: 2;
+  top: 0; left: 0; right: 0;
+  border-bottom: 2px solid black;
+  background-color: rgba(255, 255, 255, 0);
+  transition: backdrop-filter 0.7s linear, background-color 0.7s linear;
+  user-select: none;
+  box-shadow: 0 1px 2px #00000088;
+}
+.headerScrollDownPage, #navigation_panel{
+  backdrop-filter: blur(5px);
+  /*background-color: rgba(255, 255, 255, 0.5);*/
+}
+#logo_astdov{
+  grid-column: 1;
+  max-width: 3em;
+  max-height: 3em;
+  align-self: center;
+  transition: background-color 0.25s linear;
+  filter: drop-shadow(0 1px 2px #00000088);
+}
+@media (hover: hover){
+  #logo_astdov:hover{
+    background-color: rgba(32, 32, 32, 0.3);
+  }
+  #header_nav-buttons button:hover, #navigation_panel div a:hover{
+    background-color: rgba(32, 32, 32, 0.3);
+    transition: background-color 0.25s linear;
+  }
+}
+#logo_astdov:active{
+  transition: background-color 0s linear;
+  background-color: rgba(32, 32, 32, 0.5);
+}
+#header_nav-buttons{
+  justify-self: right;
+  grid-column: 2;
+}
+#header_nav-buttons button{
+  height: 100%;
+}
+#header_nav-buttons button, #navigation_panel div a{
+  background-color: rgba(32, 32, 32, 0);
+  color: black;
+  transition: background-color 0.25s linear;
+  border: none;
+  filter: drop-shadow(0 1px 2px #00000088);
+}
+
+#header_nav-buttons button:active, #navigation_panel div a:active{
+  transition: background-color 0s linear;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+#navigation_panel{
+  border-right: 2px solid black;
+  box-shadow: 1px 0 2px #00000088;
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  top: _header_height;
+  bottom: 0;
+  transform: translate(-100%, 0);
+  display: none;
+  transition: transform 0.5s ease-in-out;
+}
+#navigation_panel div, #navigation_panel div a{
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+#navigation_panel div a{
+  user-select: none;
+  text-decoration: none;
+  padding-left: 3vh;
+  padding-right: 3vh;
+}
+@media(prefers-color-scheme: dark){
+  #header{
+    background-color: rgba(0, 0, 0, 0);
+  }
+  #header, #navigation_panel{
+    border-color: #55FE55;
+  }
+  /*.headerScrollDownPage, #navigation_panel{
+    background-color: rgba(0, 0, 0, 0.5);
+  }*/
+  @media (hover: hover){
+    #logo_astdov:hover{
+      background-color: rgba(85, 254, 85, 0.3);
+      color: black
+    }
+    #header_nav-buttons button:hover, #navigation_panel div a:hover{
+      background-color: rgba(141, 141, 141, 0.3);
+    }
+  }
+  #logo_astdov:active{
+    transition: background-color 0s linear;
+    background-color: rgba(80, 249, 80, 0.5);
+  }
+  #header_nav-buttons button, #navigation_panel div a{
+    color: #55FE55;
+  }
+  
+  #header_nav-buttons button:active, #navigation_panel div a:active{
+    transition: background-color 0s linear;
+    background-color: rgba(136, 136, 136, 0.5);
+    color: rgb(80, 249, 80);
+  }
+}
+@media (max-aspect-ratio: 0.9){
+  #navigation_panel{
+    width: 100%;
+  }
+  #navigation_panel div a, #navigation_panel div{
+    width: 100%;
+  }
+}
