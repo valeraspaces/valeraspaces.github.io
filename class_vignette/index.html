@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Віртуальна він'єтка Astdov</title>
+		<link rel="stylesheet" href="./main.css">
+		<script src="./engine.js"></script>
+	</head>
+	<body>
+		<div id="settings-panel">
+			<button id="settings_hide-hover" settings-hover="false">Налаштування</button>
+			<div id="content" hide="true">
+				<div class="section">
+					<div class="header">Рушій</div>
+					<div class="section-content">
+						<label for="fov">Поле зору (<span id="fov-text" contenteditable="true"></span>) </label><input type="range" name="fov" id="fov" min="0" max="180"><br/>
+						<label for="3d_camera">3D оберти </label><input type="checkbox" name="3d_camera" id="3d_camera"><br/>
+						<label for="resolution-scale">Роздільна здатність </label><input type="number" name="resolution-scale" id="resolution-scale" placeholder="%" inputmode="numeric">
+					</div>
+				</div>
+				<div class="section">
+					<div class="header">Керування</div>
+					<div class="section-content">
+						<label for="forward">Вперед </label><input class="forward" name="forward" type="button" value="null"><br/>
+						<label for="back">Назад </label><input class="back" name="back" type="button" value="null"><br/>
+						<label for="left">Ліво </label><input class="left" name="left" type="button" value="null"><br/>
+						<label for="right">Право </label><input class="right" name="right" type="button" value="null"><br/>
+						<label for="speed">Швидкість </label><input type="number" name="speed" id="speed" placeholder="м/с" inputmode="numeric"><br/>
+						<label for="y-invert">Y інвертування миші </label><input type="checkbox" name="y-invert" id="y-invert"><br/>
+						<label for="y-invert">X інвертування миші </label><input type="checkbox" name="x-invert" id="x-invert"><br/>
+					</div>
+				</div>
+				<!--div class="section">
+					<div class="header">Інтерфейс</div>
+					<div class="section-content">
+						<label for="theme">Тема </label><input type="button" value="null" id="theme"><br/>
+						<label for="gui-fx">Візуальні ефекти </label><input type="checkbox" name="" id="gui-fx"><br/>
+					</div>
+				</div-->
+				<div class="section">
+					<div class="header">Про розробника</div>
+					<div class="section-content">
+						<a href="https:\\valeraspaces.github.io" id="valera_link" target="_blank">Веб сторінка</a><br/>
+						<span>Astdov (Валерій Обідець) @2024</span><br/>
+					</div>
+				</div>
+				<div class="section">
+					<div class="header">Застосунок</div>
+					<div class="section-content">
+						<button id="removeSettings">Скидання налаштувань</button><br/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button id="allow_fullscreen">
+			<div id="a">˹</div>
+			<div id="b">˺</div>
+			<div id="c">˻</div>
+			<div id="d">˼</div>
+		</button>
+		<div id="hint"></div>
+		<div id="info-panel">
+			<div id="base_info">
+				<div id="name">______ ______</div>
+				<div id="birth">__/__/____</div>
+			</div>
+			<div id="details">___________________________________________________________________</div>
+			<span id="more">...</span>
+		</div>
+		<canvas id="output"></canvas>
+		<script src="./main.js"></script>
+		<script src="./gui.js"></script>
+	</body>
+</html>
+
+
+
+
