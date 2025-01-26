@@ -68,9 +68,9 @@ function updateTick() {
 	canvas.width = Math.round(window.innerWidth * properties.rendererResolution);
 	canvas.height = Math.round(window.innerHeight * properties.rendererResolution);
 
-	map.transform.rotation[0] += Time.deltaTime * 10;
-	map.transform.rotation[1] += Time.deltaTime * 10;
-	map.transform.rotation[2] += Time.deltaTime * 10;
+	map.transform.rotation[0] += Time.deltaTime * 100;
+	map.transform.rotation[1] += Time.deltaTime * 100;
+	map.transform.rotation[2] += Time.deltaTime * 100;
 
     control();
 
