@@ -2,6 +2,7 @@ const camera = new WorldObject();
 const scene = new Scene();
 const map = new WorldObject();
 const canvas = document.querySelector("#output");
+const fpsMeter = document.querySelector("#fps_meter");
 
 let properties = {
     cameraSpeed: 2.5,
@@ -78,6 +79,7 @@ function updateTick() {
 	renderer.aspectRatio = renderer.screenSize[0] / renderer.screenSize[1];
 	renderer.updateConstants();
 	renderer.rendering();
+	fpsMeter.textContent = `FPS: ${Math.floor(100 / Time.deltaTime) / 100}`;
 }
 Time.deltaTimeUpdate();
 updateTick();
