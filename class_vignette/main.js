@@ -79,7 +79,7 @@ function updateTick() {
 	renderer.aspectRatio = renderer.screenSize[0] / renderer.screenSize[1];
 	renderer.updateConstants();
 	renderer.rendering();
-	fpsMeter.textContent = `FPS: ${Math.floor(100 / Time.deltaTime) / 100}`;
+	fpsMeter.textContent = `FPS: ${Math.floor(Time.deltaTime)}`;
 }
 Time.deltaTimeUpdate();
 updateTick();
