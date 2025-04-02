@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>ScanWithCamera</title>
+		<script>
+let cnv, ctx;
+const vidNode = document.createElement("video");
+
+let constraints = {
+    audio: false,
+    video: {
+        width: { ideal: 1280 },
+        height: { ideal: 1024 },
+        facingMode: "environment"
+    }
+};
+
+/*navigator.mediaDevices.enumerateDevices().then((devices) => {
+    for (var i = 0; i !== devices.length; ++i) {
+        if (devices[i].kind === 'videoinput') {
+            console.log('Camera found: ', devices[i].label || 'label not found', devices[i].deviceId || 'id no found');
+            videoConstraints.deviceId = { exact: devices[i].deviceId }
+        }
+    }
+});*/
+
+function isInMandelbrotSet(cReal, cImaginary, maxIterations = 1000) {
+    let zReal = 0;
+    let zImaginary = 0;
+
+    for (let i = 0; i < maxIterations; i++) {
+        // Обчислення нового z: z^2 + c
+        const zRealTemp = zReal * zReal - zImaginary * zImaginary + cReal;
+        const zImaginaryTemp = 2 * zReal * zImaginary + cImaginary;
+
+        zReal = zRealTemp;
+        zImaginary = zImaginaryTemp;
+
+        // Перевірка: чи виходить за межі |z| > 2
+        if (zReal * zReal + zImaginary * zImaginary > 4) {
+            return i; // Точка не належить множині
+        }
+    }
+
+    return maxIterations; // Точка належить множині
+}
+
+function setNewMedia() {
+	navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+		console.log(stream);
+		vidNode.srcObject = stream;
+		vidNode.play();
+	}).then(() => {
+		cnv.width = Math.max(vidNode.videoWidth, cnv.width);
+		cnv.height = Math.max(vidNode.videoHeight, cnv.height);
+	}).catch((error) => {
+		console.error("Error access to camera: ", error);
+	});
+}
+
+setNewMedia();
+
+let frame = 1;
+let pause = true;
+function update() {
+	window.requestAnimationFrame(update);
+	if (vidNode.videoWidth > cnv.width) cnv.width = vidNode.videoWidth;
+	if (vidNode.videoHeight > cnv.height) cnv.height = vidNode.videoHeight;
+	cnv.style = window.innerWidth / window.innerHeight >= 1 ? "height: 100%; width: auto;" : "width: 100%; height: auto";
+	const imageDataField = [0, 0, cnv.width, cnv.height];
+	
+	if (frame <= 1) ctx.drawImage(vidNode, ...imageDataField);
+	if (pause) return;
+
+	const t = performance.now();
+	const prevImageData = ctx.getImageData(...imageDataField);
+	for (let i = 3; i < prevImageData.data.length; i += 4) prevImageData.data[i] = 255;
+	ctx.drawImage(vidNode, ...imageDataField);
+	const imageData = ctx.getImageData(...imageDataField);
+	
+	//Correction
+	let [minBright, maxBright] = [255, 0];
+	for (let i = 0; i < imageData.data.length; i++) {
+		minBright = Math.min(imageData.data[i], minBright);
+		maxBright = Math.max(imageData.data[i], maxBright);
+	}
+	for (let i = 0; i < imageData.data.length; i++) {
+		imageData.data[i] = (imageData.data[i] - minBright) * 255 / (maxBright - minBright);
+	}
+	//console.log("Curr", minBright, maxBright);
+	
+	[minBright, maxBright] = [255, 0];
+	for (let i = 0; i < prevImageData.data.length; i++) {
+		minBright = Math.min(prevImageData.data[i], minBright);
+		maxBright = Math.max(prevImageData.data[i], maxBright);
+	}
+	for (let i = 0; i < prevImageData.data.length; i++) {
+		prevImageData.data[i] = (prevImageData.data[i] - minBright) * 255 / (maxBright - minBright);
+	}
+	//console.log("Prev", minBright, maxBright);
+	function fun(iterations, data) {
+		let result = data;
+		if (data == 0) return 0;
+		for (let i = 0; i < iterations; i++) {
+			//if (result <= 4) return i;
+			if (result == 1) return i;
+			if (i != 0 && result == data) return i;
+			result = result % 2 == 0 ? result / 2 : 3 * result + 1;
+		}
+		return iterations;
+	}
+	/*
+	function fun(iterations, data) {
+		let result = data;
+		let max = 0;
+		if (data == 0) return 0;
+		for (let i = 0; i < iterations; i++) {
+			//if (result <= 4) return i;
+			if (result == 1) break;
+			if (i != 0 && result == data) break;
+			result = result % 2 == 0 ? result / 2 : 3 * result + 1;
+			max = Math.max(result, max);
+		}
+		return max;
+	}*/
+	
+	let maxIterations = 0;
+	for (let i = 0; i <= 255 / 10; i++) {
+		let calc = fun(10000, i);
+		if (calc > maxIterations) maxIterations = calc;
+	}
+	
+	for (let y = 0; y < cnv.height; y++) for (let x = 0; x < cnv.width; x++) {
+		const i = (y * cnv.width + x) * 4;
+		
+		const rgb = [0, 0, 0];
+		for (let c = 0; c < rgb.length; c++) {
+			const ci = c + i;
+			cBrightness = imageData.data[ci];
+			lcBrightness = prevImageData.data[Math.min(ci, prevImageData.data.length - 1)];
+			
+			//Effects
+			
+			//rgb[c] = /*prevImageData.data[ci] +*/ Math.abs(Math.cos(imageData.data[ci] / 255 * 2 * Math.PI)) * 255;
+			//rgb[c] = Math.abs(Math.sin((prevImageData.data[ci] / 100 + Math.abs(Math.cos(imageData.data[ci]) / 255 * 2 * Math.PI)))) * 255;
+			rgb[c] = Math.max(prevImageData.data[ci], imageData.data[ci]);
+			///rgb[c] = (prevImageData.data[ci] * (frame - 1) + imageData.data[ci]) / frame;
+			//rgb[c] = prevImageData.data[ci] + imageData.data[ci];
+			//rgb[c] = Math.abs(Math.sin(imageData.data[ci] / 255 * 2 * Math.PI)) * 255;
+			//rgb[c] = Math.abs(Math.round(Math.sin(imageData.data[ci] / 255 * 2 * Math.PI))) * 255;
+			//rgb[c] = prevImageData.data[ci] + imageData.data[ci];
+			//rgb[c] = Math.abs(Math.sin(imageData.data[ci] / 255 * 2 * Math.PI)) * (prevImageData.data[ci] + imageData.data[ci]) / 2;
+			//rgb[c] = Math.abs(255 * 100 / imageData.data[ci] - imageData.data[ci]);
+			//rgb[c] = (imageData.data[ci] + Math.abs(Math.sin(prevImageData.data[ci] / 255 * Math.PI * 2)) * 255) / 2;
+			//rgb[c] = Math.abs(Math.sin(Math.tan(1 / imageData.data[ci] * Math.PI))) * 255;
+			//rgb[c] = Math.tan(imageData.data[ci] / 255 * Math.PI) * 255;
+			//rgb[c] = imageData.data[ci] / prevImageData.data[ci];
+			//rgb[c] = Math.abs(fun(255, imageData.data[ci] / 10 * 2 - 255 / 2 / 10)) * 2;
+			//rgb[c] = fun(300, Math.floor((imageData.data[ci] - 255) / 100)) * 255 / 300;
+			//rgb[c] = fun(maxIterations, Math.floor(imageData.data[ci] / 10)) * 255 / maxIterations;
+			//rgb[c] = Math.abs(imageData.data[ci] * Math.sin(imageData.data[ci] / 255 * Math.PI * 2));
+			//rgb[c] = (ci + frame) % 2 == 0 ? prevImageData.data[ci] : imageData.data[ci];
+			//rgb[c] = fun(255, imageData.data[ci]) * 255;
+			///let xO = (x - cnv.width / 2) / Math.min(cnv.width, cnv.height);
+			///let yO = (y - cnv.height / 2) / Math.min(cnv.width, cnv.height);
+			//rgb[c] = isInMandelbrotSet(xO, yO, 255) * imageData.data[ci] / 255;
+			//rgb[c] = imageData.data[ci] / isInMandelbrotSet(xO, yO, 255) * 255;
+			//rgb[c] = Math.round(imageData.data[ci] / 255) * 255;
+			//rgb[c] = imageData.data[ci];
+			
+			//let mX = x - cnv.width / 2;
+			//let mY = Math.abs(Math.asin(mX / 500 + frame * 0 / 10)) * cnv.height / 4;
+			//mY += y;
+			//rgb[c] = imageData.data[(cnv.width * Math.floor(Math.abs(mY)) + x) * 4 + c];
+			
+			//End effects
+		}
+		
+		for (let c = 0; c < rgb.length; c++) imageData.data[i + c] = rgb[c];
+	}
+	for (let i = 3; i < imageData.data.length; i += 4) imageData.data[i] = 255;
+	ctx.putImageData(imageData, 0, 0);
+	frame++;
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+	cnv = document.getElementById("output");
+	ctx = cnv.getContext("2d");
+	document.getElementById("btn-pause").addEventListener("click", () => {
+		pause = !pause;
+		document.getElementById("btn-pause").textContent = pause ? ">" : "||";
+	});
+	document.getElementById("btn-reset").addEventListener("click", () => {
+		frame = 1;
+		ctx.clearRect(0, 0, cnv.width, cnv.height);
+	});
+	document.getElementById("btn-save").addEventListener("click", () => {
+		const a = document.createElement("a");
+		a.href = cnv.toDataURL("image/png");
+		
+		const currentDate = new Date(); 
+		let name = "IMG ";
+		name += currentDate.getDate() + "_";
+		name += currentDate.getMonth() + "_";
+		name += currentDate.getFullYear() + " ";
+		name += currentDate.getHours() + ":";
+		name += currentDate.getMinutes() + ":";
+		name += currentDate.getSeconds() + ":";
+		name += currentDate.getMilliseconds();
+		
+		a.setAttribute("download", name);
+		a.click();
+		a.remove();
+	});
+	update();
+});
+		</script>
+		<style>
+			html {
+				background-color: black;
+			}
+			#output, #btn-pause, #btn-save, #btn-reset, #settings {
+				position: fixed;
+			}
+			#output {
+				z-index: -1;
+				top: 50%;
+				left: 50%;
+				width: 100%;
+				background-color: purple;
+				transform: translate(-50%, -50%);
+			}
+			#btn-save {
+				bottom: 3%;
+				left: calc(50% - 5% - 5px);
+				transform: translate(-50%; 0);
+				padding: 5%;
+				background-color: transparent;
+				border-radius: 50%;
+				border: 5px solid white;
+			}
+			#btn-save:active {
+				background-color: white;
+			}
+			#btn-pause, #btn-reset {
+				bottom: 2%;
+				font-size: 10vw;
+				background-color: transparent;
+				border: none;
+				color: white;
+			}
+			#btn-pause {
+				right: 2%;
+			}
+			#btn-reset {
+				left: 2%;
+			}
+			#settings {
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="output" width="100" height="100"></canvas>
+		
+		<div id="settings">
+			<label for="width">Camera resolution</label>
+			<input name="width" id="ipt-width" value="1920"></input>
+			<label for="height">x</label>
+			<input name="height" id="ipt-height" value="1080"></input>
+		</div>
+		
+		<button id="btn-reset">0</button>
+		<button id="btn-pause">></button>
+		<button id="btn-save"></button>
+	</body>
+</html>
